@@ -44,17 +44,16 @@
 
         .bubbles-container { position: absolute; top:0; left:0; width:100%; height:100%; pointer-events: none; z-index:0; overflow: hidden; }
         .bubble { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.6); animation: floatBubble 7s linear infinite; opacity: 0.7; }
-        @keyframes floatBubble { 0% { transform: translateY(105vh) scale(0.5); opacity: 0.7; } 50% { opacity: 0.9; } 100% { transform: translateY(-15vh) scale(1); opacity: 0; } }
+        @keyframes floatBubble { 0% { transform: translateY(105vh) scale(0.5); opacity: 0.15; } 50% { opacity: 0.1; } 100% { transform: translateY(-15vh) scale(1); opacity: 0; } }
 
         .logo { z-index:1; display:flex; align-items:center; justify-content:center; gap:0px; margin-bottom:6px; }
         .face { font-size: 3.5rem; line-height:1; animation: bounceFace 1.5s infinite ease-in-out; }
         .face.left { animation-delay: 0s; } .face.right { animation-delay: 0.5s; }
         @keyframes bounceFace { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-        .title { font-size:2.4rem; text-align:center; font-weight:900; letter-spacing:-1px; background: linear-gradient(135deg, #4f7cff, #ff6b9d); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-shadow:0 4px 12px rgba(79,124,255,0.25); z-index:1; }
-        .title2 { font-size:1.6rem; text-align:center; font-weight:900; letter-spacing:-1px; background: linear-gradient(135deg, #ff6b9d, #4f7cff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-shadow:0 4px 12px rgba(79,124,255,0.25); z-index:1; }
-        .subtitle { color:var(--muted); font-size:1.3rem; text-align:center; z-index:1; font-style:italic; }
+        .title { font-size:2.2rem; text-align:center; font-weight:900; letter-spacing:-1px; background: linear-gradient(135deg, #4f7cff, #ff6b9d); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-shadow:0 4px 12px rgba(79,124,255,0.25); z-index:1; }
+        .subtitle { color:var(--muted); font-size:1.2rem; text-align:center; z-index:1; font-style:italic; }
 
-        .btn { padding:12px 24px; border-radius:50px; border:none; font-weight:700; font-size:1.2rem; letter-spacing:0.5px; cursor:pointer; background:white; color:var(--text); box-shadow:0 6px 20px rgba(0,0,0,0.08); transition:all 0.1s; display:flex; align-items:center; gap:6px; touch-action:manipulation; }
+        .btn { padding:12px 24px; border-radius:50px; border:none; font-weight:700; font-size:1rem; letter-spacing:0.5px; cursor:pointer; background:white; color:var(--text); box-shadow:0 6px 20px rgba(0,0,0,0.08); transition:all 0.1s; display:flex; align-items:center; gap:6px; touch-action:manipulation; }
         .btn:active { transform:scale(0.96); opacity:0.9; }
         .btn.primary { background:var(--primary); color:white; } .btn.accent { background:var(--accent); color:white; }
         .btn.small { padding:6px 14px; font-size:0.8rem; }
@@ -102,8 +101,8 @@
             <div class="subtitle"></div>
             <button class="btn primary" id="btn-create">🎨 Crear obra</button>
             <button class="btn accent" id="btn-gallery">🖼️ Mi Galería</button>
-	    <a href="https://photos.app.goo.gl/Lv2Syv54bKpJCHyd7" target="_blank" class="btn" style="background:#2a9d8f; color:white; text-decoration:none;">📐 Ver figuras de ejemplo</a>
-	    <a href="https://ko-fi.com/tangramgame" target="_blank" class="btn" style="background:#ff5e5b; color:white; text-decoration:none;">☕ Apóyame con un café</a>
+	    <a href="https://photos.app.goo.gl/Lv2Syv54bKpJCHyd7" target="_blank" class="btn" style="background:#2a9d8f; color:white; text-decoration:none;">📐 Ejemplos</a>
+	    <a href="https://ko-fi.com/tangramgame" target="_blank" class="btn" style="background:#ff5e5b; color:white; text-decoration:none;">☕ Pa' mi café</a>
         </div>
 
         <div class="screen" id="create-screen">
@@ -147,12 +146,12 @@
             let bubbleInterval = null;
             function createMenuBubble() {
                 if (!menuBubbles || currentScreen !== 'menu') return;
-                const b = document.createElement('div'); b.className = 'bubble'; const size = 20 + Math.random() * 40;
+                const b = document.createElement('div'); b.className = 'bubble'; const size = 5 + Math.random() * 15;
                 b.style.width = size + 'px'; b.style.height = size + 'px'; b.style.left = Math.random() * 100 + '%';
                 b.style.background = ['#ffb3ba','#ff6b6b','#ffd93d','#6bcb77','#4d96ff','#ff8fe8','#a66cff'][Math.floor(Math.random()*7)];
-                b.style.animationDuration = (6 + Math.random() * 8) + 's'; menuBubbles.appendChild(b); b.addEventListener('animationend', () => b.remove());
+                b.style.animationDuration = (5 + Math.random() * 15) + 's'; menuBubbles.appendChild(b); b.addEventListener('animationend', () => b.remove());
             }
-            function startMenuBubbles() { stopMenuBubbles(); if (menuBubbles) { bubbleInterval = setInterval(createMenuBubble, 900); setTimeout(createMenuBubble, 100); setTimeout(createMenuBubble, 400); setTimeout(createMenuBubble, 700); } }
+            function startMenuBubbles() { stopMenuBubbles(); if (menuBubbles) { bubbleInterval = setInterval(createMenuBubble, 1600); setTimeout(createMenuBubble, 2330); } }
             function stopMenuBubbles() { if (bubbleInterval) clearInterval(bubbleInterval); if (menuBubbles) while (menuBubbles.firstChild) menuBubbles.removeChild(menuBubbles.firstChild); }
 
             const GRID = 8; const snap = v => Math.round(v/GRID)*GRID;
