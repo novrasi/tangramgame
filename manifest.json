@@ -4,8 +4,8 @@
   "description": "Crea, dibuja y diviértete con el tangram.",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#ffd6e0",
-  "theme_color": "#4f7cff",
+  "background_color": "#d6f1ff",
+  "theme_color": "#000000",
   "orientation": "portrait",
 "icons": [
   {
