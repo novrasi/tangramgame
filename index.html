@@ -46,7 +46,7 @@
         .bubble { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.6); animation: floatBubble 7s linear infinite; opacity: 0.7; }
         @keyframes floatBubble { 0% { transform: translateY(105vh) scale(0.5); opacity: 0.7; } 50% { opacity: 0.9; } 100% { transform: translateY(-15vh) scale(1); opacity: 0; } }
 
-        .logo { z-index:1; display:flex; align-items:center; gap:0px; margin-bottom:6px; }
+        .logo { z-index:1; display:flex; align-items:center; justify-content:center; gap:0px; margin-bottom:6px; }
         .face { font-size: 3.5rem; line-height:1; animation: bounceFace 1.5s infinite ease-in-out; }
         .face.left { animation-delay: 0s; } .face.right { animation-delay: 0.5s; }
         @keyframes bounceFace { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
@@ -84,8 +84,7 @@
         @keyframes fadeInOut { 0%{opacity:0; transform:translateX(-50%) translateY(20px)} 15%{opacity:1; transform:translateX(-50%) translateY(0)} 75%{opacity:1} 100%{opacity:0; transform:translateX(-50%) translateY(-10px)} }
         .header-row { position:relative; width:100%; display:flex; align-items:center; justify-content:space-between; padding:0 8px; }
         .center-title { position:absolute; left:50%; transform:translateX(-50%); font-weight:700; font-size:0.9rem; white-space:nowrap; pointer-events:none; }
-		.logo-img {
-  		  width: min(50%, 400px);  /* Se adapta a pantallas pequeñas */
+		.logo-img { width: min(50%, 400px);  /* Se adapta a pantallas pequeñas */
    			 height: auto;            /* Mantiene la proporción */
    		 animation: bounceFace 1.5s infinite ease-in-out;
 		}
@@ -97,7 +96,6 @@
             <div class="bubbles-container" id="menu-bubbles"></div>
 			<div class="logo"><img src="logo.png" alt="Logo Tangram Didáctico" class="logo-img"></div>
             <div class="title">TANGRAM DIDÁCTICO</div>
-            <div class="title2">NOVEDADES RAMSI</div>
             <div class="subtitle"></div>
             <div class="subtitle">Crea, Dibuja, Diviertete</div>
             <div class="subtitle"></div>
