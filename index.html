@@ -25,6 +25,7 @@
             touch-action: manipulation;
             user-select: none;
             -webkit-user-select: none;
+			overscroll-behavior: none;
         }
         #app {
             position: relative; width: 100%; max-width: 100%; height: 100%;
@@ -294,6 +295,18 @@
                             }
                             return;
                         }
+						// Evitar que gestos del sistema (volver atrás) cierren la app al dibujar/mover piezas
+document.addEventListener('touchstart', function(e) {
+    if (cv && (e.target === cv || cv.contains(e.target))) {
+        // Toque dentro del canvas, lo gestionamos nosotros
+    }
+}, { passive: false });
+
+document.addEventListener('touchmove', function(e) {
+    if (cv && (e.target === cv || cv.contains(e.target))) {
+        e.preventDefault(); // Bloquea el gesto del sistema
+    }
+}, { passive: false });
                         selectedIdx=-1;draggedIdx=-1;isDrawing=true; currentStroke={color:tool.color,size:tool.size,points:[[x,y]]}; strokesList.push(currentStroke); ctx.globalCompositeOperation='source-over'; ctx.strokeStyle=tool.color; redrawCreateCanvas(); ctx.lineWidth=tool.size; ctx.beginPath(); ctx.moveTo(x,y);
                     } else if(mode==='pieces'){
                         let foundIdx=-1; for(let i=piecesList.length-1;i>=0;i--){ const pc=piecesList[i]; const pts=transformPoints(pieces[pc.pieceId],pc.cx,pc.cy,pc.angle,pc.flipped,pc.scale||1); if(pointInPolygon(x,y,pts)){ foundIdx=i; break; } }
