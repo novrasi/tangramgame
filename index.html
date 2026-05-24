@@ -25,7 +25,6 @@
             touch-action: manipulation;
             user-select: none;
             -webkit-user-select: none;
-			overscroll-behavior: none;
         }
         #app {
             position: relative; width: 100%; max-width: 100%; height: 100%;
@@ -45,7 +44,7 @@
 
         .bubbles-container { position: absolute; top:0; left:0; width:100%; height:100%; pointer-events: none; z-index:0; overflow: hidden; }
         .bubble { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.6); animation: floatBubble 7s linear infinite; opacity: 0.7; }
-        @keyframes floatBubble { 0% { transform: translateY(105vh) scale(0.5); opacity: 0.15; } 50% { opacity: 0.1; } 100% { transform: translateY(-15vh) scale(1); opacity: 0; } }
+        @keyframes floatBubble { 0% { transform: translateY(105vh) scale(0.5); opacity: 0.25; } 50% { opacity: 0.2; } 100% { transform: translateY(-15vh) scale(1); opacity: 0; } }
 
         .logo { z-index:1; display:flex; align-items:center; justify-content:center; gap:0px; margin-bottom:6px; }
         .face { font-size: 3.5rem; line-height:1; animation: bounceFace 1.5s infinite ease-in-out; }
@@ -54,7 +53,7 @@
         .title { font-size:2.2rem; text-align:center; font-weight:900; letter-spacing:-1px; background: linear-gradient(135deg, #4f7cff, #ff6b9d); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-shadow:0 4px 12px rgba(79,124,255,0.25); z-index:1; }
         .subtitle { color:var(--muted); font-size:1.2rem; text-align:center; z-index:1; font-style:italic; }
 
-        .btn { padding:12px 24px; border-radius:50px; border:none; font-weight:700; font-size:1rem; letter-spacing:0.5px; cursor:pointer; background:white; color:var(--text); box-shadow:0 6px 20px rgba(0,0,0,0.08); transition:all 0.1s; display:flex; align-items:center; gap:6px; touch-action:manipulation; }
+        .btn { padding:12px 24px; border-radius:50px; border:none; font-weight:700; font-size:1.15rem; letter-spacing:0.5px; cursor:pointer; background:white; color:var(--text); box-shadow:0 6px 20px rgba(0,0,0,0.08); transition:all 0.1s; display:flex; align-items:center; gap:6px; touch-action:manipulation; }
         .btn:active { transform:scale(0.96); opacity:0.9; }
         .btn.primary { background:var(--primary); color:white; } .btn.accent { background:var(--accent); color:white; }
         .btn.small { padding:6px 14px; font-size:0.8rem; }
@@ -95,6 +94,7 @@
         <div class="screen active" id="menu-screen">
             <div class="bubbles-container" id="menu-bubbles"></div>
 			<div class="logo"><img src="logo.png" alt="Logo Tangram Didáctico" class="logo-img"></div>
+            <div class="subtitle"></div>
             <div class="title">TANGRAM DIDÁCTICO</div>
             <div class="subtitle"></div>
             <div class="subtitle">Crea, Dibuja, Diviertete</div>
@@ -103,7 +103,7 @@
             <button class="btn primary" id="btn-create">🎨 Crear obra</button>
             <button class="btn accent" id="btn-gallery">🖼️ Mi Galería</button>
 	    <a href="https://photos.app.goo.gl/Lv2Syv54bKpJCHyd7" target="_blank" class="btn" style="background:#48c07b; color:white; text-decoration:none;">📐 Ejemplos</a>
-	    <a href="https://ko-fi.com/tangramgame" target="_blank" class="btn" style="background:#e67e22; color:white; text-decoration:none;">☕ Pa' mi café</a>
+	    <a href="https://ko-fi.com/tangramgame" target="_blank" class="btn" style="background:#e67e22; color:white; text-decoration:none;">☕ Apoyar</a>
         </div>
 
         <div class="screen" id="create-screen">
@@ -295,25 +295,7 @@
                             }
                             return;
                         }
-						// Evitar que gestos del sistema (volver atrás) cierren la app al dibujar/mover piezas
-document.addEventListener('touchstart', function(e) {
-    if (cv && (e.target === cv || cv.contains(e.target))) {
-        // Toque dentro del canvas, lo gestionamos nosotros
-    }
-}, { passive: false });
 
-document.addEventListener('touchmove', function(e) {
-    if (cv && (e.target === cv || cv.contains(e.target))) {
-        e.preventDefault(); // Bloquea el gesto del sistema
-    }
-}, { passive: false });
-						// Evitar que el botón "atrás" del sistema cierre la PWA
-history.pushState(null, null, location.href);
-window.addEventListener('popstate', function(event) {
-    history.pushState(null, null, location.href);
-    // Si estamos en el menú, no hacer nada extra
-    // Si estamos en otra pantalla, podrías querer volver al menú en lugar de salir
-});
                         selectedIdx=-1;draggedIdx=-1;isDrawing=true; currentStroke={color:tool.color,size:tool.size,points:[[x,y]]}; strokesList.push(currentStroke); ctx.globalCompositeOperation='source-over'; ctx.strokeStyle=tool.color; redrawCreateCanvas(); ctx.lineWidth=tool.size; ctx.beginPath(); ctx.moveTo(x,y);
                     } else if(mode==='pieces'){
                         let foundIdx=-1; for(let i=piecesList.length-1;i>=0;i--){ const pc=piecesList[i]; const pts=transformPoints(pieces[pc.pieceId],pc.cx,pc.cy,pc.angle,pc.flipped,pc.scale||1); if(pointInPolygon(x,y,pts)){ foundIdx=i; break; } }
