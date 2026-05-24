@@ -307,6 +307,13 @@ document.addEventListener('touchmove', function(e) {
         e.preventDefault(); // Bloquea el gesto del sistema
     }
 }, { passive: false });
+						// Evitar que el botón "atrás" del sistema cierre la PWA
+history.pushState(null, null, location.href);
+window.addEventListener('popstate', function(event) {
+    history.pushState(null, null, location.href);
+    // Si estamos en el menú, no hacer nada extra
+    // Si estamos en otra pantalla, podrías querer volver al menú en lugar de salir
+});
                         selectedIdx=-1;draggedIdx=-1;isDrawing=true; currentStroke={color:tool.color,size:tool.size,points:[[x,y]]}; strokesList.push(currentStroke); ctx.globalCompositeOperation='source-over'; ctx.strokeStyle=tool.color; redrawCreateCanvas(); ctx.lineWidth=tool.size; ctx.beginPath(); ctx.moveTo(x,y);
                     } else if(mode==='pieces'){
                         let foundIdx=-1; for(let i=piecesList.length-1;i>=0;i--){ const pc=piecesList[i]; const pts=transformPoints(pieces[pc.pieceId],pc.cx,pc.cy,pc.angle,pc.flipped,pc.scale||1); if(pointInPolygon(x,y,pts)){ foundIdx=i; break; } }
